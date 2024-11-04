@@ -9,17 +9,7 @@ namespace Game
         public static void Init()
         {
 
-            Engine.s_instance.Draw.Text("Hello World");
-
-            var player = (Player)Entity.GetFirstEntityByClassName("Player");
-            Console.WriteLine("Health according to client: " + player.Health);
-
-            ConsoleKeyInfo t;
-            while ((t = Console.ReadKey()).Key != ConsoleKey.Escape)
-            {
-                Console.WriteLine("Hello World!");
-                Console.WriteLine(t.KeyChar);
-            }
+            Engine.s_instance.Viewport = new AsciiViewport(Console.WindowWidth - 8, Console.WindowHeight - 8);
         }
 
         public static void Update()
@@ -27,5 +17,21 @@ namespace Game
 
 
         }
+
+        public static void Draw()
+        {
+
+            ConsoleKeyInfo t;
+            t = Console.ReadKey();
+
+            Client.Utils.PrintLine(0, 0, "Hello World!");
+            Client.Utils.PrintLine(0, 1, t.KeyChar.ToString());
+            Client.Utils.PrintLine(0, 2, "Tick: " + Environment.TickCount);
+
+            var viewport = (AsciiViewport)Engine.s_instance.Viewport;
+            viewport.Renderer.DrawRectangle(10, 10, 5, 10);
+            viewport.Renderer.DrawRectangle(20, 10, 5, 5, '?');
+        }
     }
 }
+

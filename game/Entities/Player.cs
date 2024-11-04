@@ -15,7 +15,7 @@ namespace Game.Entities
         public Player()
         {
 
-            Engine.s_instance.Draw.Text("Hello World!");
+
         }
     }
 }

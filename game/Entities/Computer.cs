@@ -9,5 +9,9 @@ namespace Game.Entities
 {
     public class Computer : Entity
     {
+
+
+
+
     }
 }

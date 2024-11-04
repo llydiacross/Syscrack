@@ -8,6 +8,8 @@
         static void Main(string[] args)
         {
 
+            Console.WriteLine("OS: " + Utils.FriendlyName());
+
             // have be set by a flag
             var IsLocal = true;
 
@@ -25,17 +27,14 @@
 
             if (!game.IsActive)
             {
-                Console.WriteLine("Sorry! For some unexplained reason. A criticual server instance has failed to start. Please check if any mods are installed, and try again");
+                Console.WriteLine("Sorry! For some unexplained reason. A critical error in the server instance has prevented it from starting. Please check if any mods are installed, and try again");
                 Environment.Exit(0);
             }
 
-
             if (!IsLocal)
             {
-
                 Engine.s_instance.SetAsDedicatedServer();
             }
-
 
             if (!Engine.s_instance.IsServer)
             {
@@ -43,6 +42,43 @@
                 // TODO: if we are running as a client and not just the sever, load the client.dll
                 var client = new Host();
                 client.Start("client.dll"); // load the main game dll
+
+                if (!client.IsActive)
+                {
+                    Console.WriteLine("Sorry! For some unexplained reason. A critical error in the client instance has prevented it from starting. Please check if any mods are installed, and try again");
+                    Environment.Exit(0);
+                }
+
+                program.Hosts.Add(client);
+            }
+
+            // Mod Test TODO: Make this read from some sort of directory all the mods and stuff
+            var mod = new Host();
+            mod.Start("mod.dll", "Mod.Mod");
+
+            if (!Engine.s_instance.IsServer)
+            {
+                // Initialize the current viewport
+                Engine.s_instance.Viewport.Init();
+            }
+
+            // enter game loop
+            while (true)
+            {
+
+                // invoke update
+                program.Hosts[0].Game.Invoke("Update", []);
+
+                if (!Engine.s_instance.IsServer)
+                {
+                    // invoke update on client
+                    program.Hosts[1].Game.Invoke("Update", []);
+                    // invoke draw
+                    program.Hosts[1].Game.Invoke("Draw", []);
+                }
+
+                // draw the viewport
+                Engine.s_instance.Viewport.Draw();
             }
         }
     }
@@ -52,7 +88,7 @@
 
         public Host Host;
         public Database Database;
-        public Draw Draw;
+        public Viewport Viewport;
         public Network Network;
 
         public static Engine s_instance;
@@ -73,7 +109,7 @@
                 throw new ApplicationException("you cannot create engine class twice");
 
 
-            Draw = new Draw();
+            Viewport = new Viewport();
             Database = new Database();
             Host = new Host();
             Network = new Network();

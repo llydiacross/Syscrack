@@ -2,7 +2,7 @@ using Syscrack;
 
 namespace Game
 {
-    public class Utils
+    public static class Utils
     {
 
         public static Entity CreateEntity(string entityName)

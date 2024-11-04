@@ -19,6 +19,7 @@ namespace Syscrack
 
         public AssemblyMetadata Metadata { get; set; }
         public Assembly Assembly { get; set; }
+        public object? MainClass { get; set; }
 
         public Game(string gameDll)
         {
@@ -27,7 +28,7 @@ namespace Syscrack
             var assemblyMetadata = new AssemblyMetadata
             {
                 Name = mod.FullName ?? mod.GetName().Name ?? "Unknown",
-                Description = mod.Location,
+                Description = $"{mod.FullName} ({mod.Location})",
                 Version = mod.GetName()?.Version?.ToString() ?? "0.0",
             };
 
@@ -36,19 +37,19 @@ namespace Syscrack
             Assembly = mod;
         }
 
-        public void Init()
+        public void Invoke(string method, object[]? args, string mainClass = "Game.Game")
         {
 
             // check that the assembly is valid by creating an instance of the Game class                                                                  
-            var game = Assembly.CreateInstance("Game.Game") ?? throw new ApplicationException("no class called Game in assembly");
+            MainClass = MainClass ?? Assembly.CreateInstance(mainClass) ?? throw new ApplicationException("no class called Game in assembly");
 
-            var type = game.GetType();
-            var method = type.GetMethod("Init");
+            var type = MainClass.GetType();
+            var func = type.GetMethod(method);
 
-            if (method == null)
+            if (func == null)
                 throw new ApplicationException($"{type.Name} does not exist");
 
-            _ = method.Invoke(game, []);
+            _ = func.Invoke(MainClass, args);
         }
     }
 }
