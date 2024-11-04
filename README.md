@@ -1,3 +1,12 @@
 # Syscrack
 
-This is a custom c# engine which has a system in place for rendering multiple viewports along other things. Its meant to power the web MMO eventually.
+Custom game engine written in C# by Llydia Cross (2024).
+
+## Features
+
+ * Entity Class System.
+ * Quake/HL inspired Server/Client-Side architecture.
+ * Modding support.
+ * World Format.
+ * UI System.
+ * Map Editor.
