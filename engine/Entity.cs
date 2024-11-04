@@ -52,10 +52,19 @@ namespace Syscrack
         }
 
         public int Id { get; set; }
+        public bool Alive { get; set; }
 
         public Entity()
         {
             Id = Entities.Where((a) => a != null).Count();
+            Alive = false;
+        }
+
+        public void Create()
+        {
+
+            Alive = true;
+            this.OnSpawn();
         }
 
         public virtual void OnSpawn()

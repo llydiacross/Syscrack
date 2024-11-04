@@ -41,7 +41,7 @@
 
                 // TODO: if we are running as a client and not just the sever, load the client.dll
                 var client = new Host();
-                client.Start("client.dll"); // load the main game dll
+                client.Start("client.dll", "Client.Game"); // load the main game dll
 
                 if (!client.IsActive)
                 {
@@ -69,12 +69,14 @@
                 // invoke update
                 program.Hosts[0].Game.Invoke("Update", []);
 
+                mod.Game.Invoke("Update", [], "Mod.Mod");
+
                 if (!Engine.s_instance.IsServer)
                 {
                     // invoke update on client
-                    program.Hosts[1].Game.Invoke("Update", []);
+                    program.Hosts[1].Game.Invoke("Update", [], "Client.Game");
                     // invoke draw
-                    program.Hosts[1].Game.Invoke("Draw", []);
+                    program.Hosts[1].Game.Invoke("Draw", [], "Client.Game");
                 }
 
                 // draw the viewport

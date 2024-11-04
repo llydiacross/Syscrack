@@ -9,7 +9,7 @@ namespace Game
         public static void Init()
         {
 
-            Console.WriteLine("Hello World");
+            Console.WriteLine("Game Init");
         }
 
         public static void Update()

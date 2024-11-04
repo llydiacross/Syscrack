@@ -1,7 +1,7 @@
 ﻿using Game.Entities;
 using Syscrack;
 
-namespace Game
+namespace Client
 {
     public class Game
     {
@@ -9,6 +9,7 @@ namespace Game
         public static void Init()
         {
 
+            Console.WriteLine("Client Init");
             Engine.s_instance.Viewport = new AsciiViewport(Console.WindowWidth - 8, Console.WindowHeight - 8);
         }
 
