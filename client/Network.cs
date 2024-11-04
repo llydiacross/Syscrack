@@ -14,7 +14,7 @@ namespace Client
         public void ReceiveCreateEntity(Entity entity)
         {
 
-            Entity.Register(entity);
+            Entity.Create(entity);
         }
     }
 }

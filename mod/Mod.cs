@@ -11,7 +11,11 @@ namespace Mod
         {
 
             Console.WriteLine("Mod successfully loaded!");
-            Game.Utils.CreateEntity(typeof(ExampleEntity));
+
+            Syscrack.Utils.RegisterEntity(typeof(ExampleEntity));
+
+            // Just a test of creating an entity from the game.dll inside the mod.dll
+            Syscrack.Utils.CreateEntity("Game.Entities.Player");
         }
 
         public static void Update()

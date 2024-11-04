@@ -9,6 +9,43 @@ namespace Syscrack
 {
     public static class Utils
     {
+        public static Entity CreateEntity(string fullName)
+        {
+
+            var t = Entity.EntityTable[fullName];
+
+            if (t == null)
+                throw new ApplicationException("tired to create invalid entity " + fullName);
+
+            if (!t.IsAssignableTo(typeof(Entity)))
+                throw new ApplicationException("Must inherit entity class");
+
+            var c = Activator.CreateInstance(t) ?? throw new ApplicationException("Invalid entity class");
+            return Entity.Create((Entity)c);
+        }
+
+        public static Entity CreateEntity(Type t)
+        {
+
+            if (!t.IsAssignableTo(typeof(Entity)))
+                throw new ApplicationException("Must inherit entity class");
+
+            var c = Activator.CreateInstance(t) ?? throw new ApplicationException("Invalid entity class");
+            return Entity.Create((Entity)c);
+        }
+
+        public static void RegisterEntity(Type entity)
+        {
+
+            if (!entity.IsAssignableTo(typeof(Entity)))
+                throw new ApplicationException("must inheret Entity class");
+
+#if DEBUG
+            Console.WriteLine("Registering Entity " + entity.FullName);
+#endif
+
+            Entity.EntityTable.Add(entity.FullName ?? entity.Name, entity);
+        }
 
         public static string HKLM_GetString(string path, string key)
         {

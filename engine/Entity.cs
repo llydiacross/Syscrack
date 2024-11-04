@@ -11,10 +11,15 @@ namespace Syscrack
     public class Entity
     {
 
-        private static readonly Entity[] Entities = new Entity[2048];
 
-        public static Entity Register(Entity entity)
+        public static readonly Dictionary<string, Type> EntityTable = [];
+        private static readonly Entity[] Entities = new Entity[4096];
+
+        public static Entity Create(Entity entity)
         {
+
+            if (EntityTable[entity.GetType().FullName ?? entity.GetType().Name] == null)
+                throw new ApplicationException("tired to create unregistered Entity type");
 
             if (Entities[entity.Id] != null)
                 throw new ApplicationException("Entity already alive with that Id");

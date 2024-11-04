@@ -11,10 +11,8 @@ namespace Syscrack
     {
 
         public Game Game { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Version { get; set; }
         public bool IsActive { get; set; }
+
         public Host()
         {
 
@@ -25,20 +23,17 @@ namespace Syscrack
         {
 
             this.Game = new Game(gameDll);
-            this.Name = this.Game.Metadata.Name;
-            this.Version = this.Game.Metadata.Version;
-            this.Description = this.Game.Metadata.Description;
 
             try
             {
-                Console.WriteLine("[Intializing] " + this.Description);
+                Console.WriteLine("[Intializing] " + this.Game.Metadata.Description);
                 this.Game.Invoke("Init", [], mainClass);
                 this.IsActive = true;
             }
             catch (Exception ex)
             {
 
-                Console.Error.WriteLine("[FAILED! TO INIT] " + this.Name);
+                Console.Error.WriteLine("[FAILED! TO INIT] " + this.Game.Metadata.Name);
                 Console.Error.WriteLine(ex.ToString());
                 this.IsActive = false;
             }
