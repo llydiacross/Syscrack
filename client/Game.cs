@@ -15,8 +15,8 @@ namespace Client
 
         public static void Update()
         {
-
-
+            // Update input on the client
+            Engine.s_instance.Input.UpdateInput();
         }
 
         public static void Draw()
@@ -24,6 +24,7 @@ namespace Client
 
             Client.Utils.PrintLine(0, 0, "Hello World!");
             Client.Utils.PrintLine(0, 1, "Tick: " + Environment.TickCount);
+            Client.Utils.PrintLine(0, 2, "x/y: " + Engine.s_instance.Input.MousePosition.X + "/" + Engine.s_instance.Input.MousePosition.Y);
 
             var viewport = (AsciiViewport)Engine.s_instance.Viewport;
             viewport.Renderer.DrawRectangle(10, 10, 5, 10);

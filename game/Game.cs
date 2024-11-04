@@ -17,7 +17,9 @@ namespace Game
 
         public static void Update()
         {
-
+            
+            // Update input on the server
+            Engine.s_instance.Input.UpdateInput();
         }
     }
 }

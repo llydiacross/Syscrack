@@ -93,6 +93,8 @@
         public Viewport Viewport;
         public Network Network;
 
+        public Input Input;
+
         public static Engine s_instance;
 
         public bool IsServer { get; private set; }
@@ -115,6 +117,7 @@
             Database = new Database();
             Host = new Host();
             Network = new Network();
+            Input = new Input();
 
             s_instance = this;
         }

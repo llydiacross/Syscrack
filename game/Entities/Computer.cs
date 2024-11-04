@@ -11,7 +11,9 @@ namespace Game.Entities
     {
 
 
-
+        void Attack(){
+            this.Attack();
+        }
 
     }
 }

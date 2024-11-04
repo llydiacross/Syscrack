@@ -7,8 +7,26 @@ using System.Threading.Tasks;
 
 namespace Syscrack
 {
+    public struct Vector2D {
+            public int X {get; set;}
+            public int Y {get; set;}
+
+            public Vector2D(int x, int y ) {
+                X = x;
+                Y = y;
+            }
+    }
+
+    public struct Rect {
+            public int Left { get; set; }
+            public int Top { get; set; }
+            public int Right { get; set; }
+            public int Bottom { get; set; }
+    
+    }
     public static class Utils
     {
+     
         public static Entity CreateEntity(string fullName)
         {
 
