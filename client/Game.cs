@@ -22,12 +22,8 @@ namespace Client
         public static void Draw()
         {
 
-            ConsoleKeyInfo t;
-            t = Console.ReadKey();
-
             Client.Utils.PrintLine(0, 0, "Hello World!");
-            Client.Utils.PrintLine(0, 1, t.KeyChar.ToString());
-            Client.Utils.PrintLine(0, 2, "Tick: " + Environment.TickCount);
+            Client.Utils.PrintLine(0, 1, "Tick: " + Environment.TickCount);
 
             var viewport = (AsciiViewport)Engine.s_instance.Viewport;
             viewport.Renderer.DrawRectangle(10, 10, 5, 10);

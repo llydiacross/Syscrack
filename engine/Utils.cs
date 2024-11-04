@@ -12,7 +12,7 @@ namespace Syscrack
         public static Entity CreateEntity(string fullName)
         {
 
-            var t = Entity.EntityTable[fullName];
+            var t = Entity.GetEntityType(fullName);
 
             if (t == null)
                 throw new ApplicationException("tired to create invalid entity " + fullName);
@@ -37,14 +37,10 @@ namespace Syscrack
         public static void RegisterEntity(Type entity)
         {
 
-            if (!entity.IsAssignableTo(typeof(Entity)))
-                throw new ApplicationException("must inheret Entity class");
-
 #if DEBUG
             Console.WriteLine("Registering Entity " + entity.FullName);
 #endif
-
-            Entity.EntityTable.Add(entity.FullName ?? entity.Name, entity);
+            Entity.Register(entity);
         }
 
         public static string HKLM_GetString(string path, string key)

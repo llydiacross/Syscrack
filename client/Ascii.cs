@@ -30,7 +30,7 @@ namespace Syscrack
         public override void Draw()
         {
 
-            Console.Clear();
+            Console.SetCursorPosition(0, 0);
 
             for (int i = 0; i < buffer.Length; i++)
             {
