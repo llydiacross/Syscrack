@@ -99,17 +99,11 @@ namespace Syscrack
         }
     }
 
-
     // :)
-    public class Ascii
+    public class Ascii(AsciiViewport viewport) : Renderer(viewport)
     {
 
-        public AsciiViewport Viewport { get; set; }
-
-        public Ascii(AsciiViewport viewport)
-        {
-            Viewport = viewport;
-        }
+        public new AsciiViewport Viewport { get; private set; } = viewport;
 
         public void DrawRectangle(int x, int y, int width, int height, char background = '#')
         {
@@ -125,7 +119,12 @@ namespace Syscrack
             }
         }
 
-        public void DrawString(int x, int y, string str)
+        public override void DrawRectangle(int x, int y, int width, int height)
+        {
+            this.DrawRectangle(x, y, width, height);
+        }
+
+        public override void DrawString(int x, int y, string str)
         {
             Viewport.Set(x, y, str.ToCharArray());
         }

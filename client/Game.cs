@@ -10,7 +10,7 @@ namespace Client
         {
 
             Console.WriteLine("Client Init");
-            Engine.s_instance.Viewport = new AsciiViewport(Console.WindowWidth - 8, Console.WindowHeight - 8);
+            Engine.s_instance.Viewport = new AsciiViewport(Console.WindowWidth - 8, Console.WindowHeight - 8); // We want to use the Ascii Viewport given by the engine, can be changed later to another viewport/render very easily
         }
 
         public static void Update()
@@ -27,7 +27,7 @@ namespace Client
 
             var viewport = (AsciiViewport)Engine.s_instance.Viewport;
             viewport.Renderer.DrawRectangle(10, 10, 5, 10);
-            viewport.Renderer.DrawRectangle(20, 10, 5, 5, '?');
+            viewport.Renderer.DrawRectangle(20, 15, 15, 5, '?');
         }
     }
 }
